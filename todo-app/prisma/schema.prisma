@@ -1,0 +1,31 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/infrastructure/client"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        BigInt   @id @default(autoincrement())
+  name      String   @db.VarChar(50)
+  age       Int
+  updatedAt DateTime @default(now())
+  createdAt DateTime @default(now())
+  todos     Todo[]
+}
+
+model Todo {
+  id          BigInt   @id @default(autoincrement())
+  userId      BigInt   @unique
+  owner       User     @relation(fields: [userId], references: [id])
+  title       String   @db.VarChar(50)
+  description String   @db.VarChar(255)
+  updatedAt   DateTime @default(now())
+  createdAt   DateTime @default(now())
+}
