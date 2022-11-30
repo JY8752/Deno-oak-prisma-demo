@@ -1,4 +1,5 @@
 export type User = {
-  name: string;
-  age: number;
+  id: Readonly<string>;
+  name: Readonly<string>;
+  age: Readonly<number>;
 };
