@@ -1,4 +1,5 @@
 import { Application } from "https://deno.land/x/oak@v11.1.0/application.ts";
+import { todoRouter } from "./presentation/route/todo/todoRoute.ts";
 import { userRouter } from "./presentation/route/user/userRoute.ts";
 
 const app = new Application();
@@ -20,4 +21,5 @@ app.use(async (ctx, next) => {
 });
 
 await app.use(userRouter.routes())
+  .use(todoRouter.routes())
   .listen({ port: 8000 });
